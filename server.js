@@ -36,4 +36,9 @@ app.delete('/books/:id', async (request, response) => {
     response.status(500).send('Error when deleting book')
   }
 });
+app.put('/books/:id', async (request, response) => {
+  const { title, description, status } = request.body;
+  const updatedBook = await Book.findByIdAndUpdate(request.params.id, { title, description, status }, { new: true, overwrite: true });
+  response.send(updatedBook);
+});
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
