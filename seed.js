@@ -10,7 +10,7 @@ async function seed() {
   const newBook = new Book({
     title: 'The Blade Itself',
     description: 'Grim Dark Fantasy',
-    status: 'new'
+    status: true
   });
 
   newBook.save(function(err){
@@ -21,7 +21,7 @@ async function seed() {
   await Book.create({
     title: 'Words of Radiance',
     description: 'Epic Fantasy Set in the World of Roshar, Sequel to Way of Kings',
-    status: 'new'
+    status: true
   });
   console.log('Saved WoR!')
   mongoose.disconnect();
