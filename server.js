@@ -27,4 +27,13 @@ app.post('/books', async (request, response) => {
     response.status(500).send('Error on creation')
   }
 });
+app.delete('/books/:id', async (request, response) => {
+  try {
+   await Book.findByIdAndDelete(request.params.id);
+   response.status(204);
+  } catch (error) {
+    console.error(error);
+    response.status(500).send('Error when deleting book')
+  }
+});
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
