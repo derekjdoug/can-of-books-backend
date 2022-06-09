@@ -28,7 +28,7 @@ app.get('/user', handleGetUser);
 
 async function handleGetBooks(req, res) {
   try {
-    const booksFromDb = await Book.find({ email: req.user.email });
+    const booksFromDb = await Book.find({ email: req.params.email });
     if (booksFromDb.length > 0) {
       res.status(200).send(booksFromDb);
     } else {
@@ -54,7 +54,7 @@ async function handleDeleteBooks(req, res) {
   const { id } = req.params;
 
   try {
-    const book = await Book.findOne({ _id: id, email: req.user.email });
+    const book = await Book.findOne({ _id: id, email: req.params.email });
     if (!book) res.status(400).send('unable to delete book');
     else {
       await Book.findByIdAndDelete(id);
@@ -68,10 +68,10 @@ async function handleDeleteBooks(req, res) {
 async function handlePutBooks(req, res) {
   const { id } = req.params;
   try {
-    const book = await Book.findOne({ _id: id, email: req.user.email });
+    const book = await Book.findOne({ _id: id, email: req.params.email });
     if (!book) res.status(400).send('unable to update book');
     else {
-      const updatedBook = await Book.findByIdAndUpdate(id, { ...req.body, email: req.user.email }, { new: true, overwrite: true });
+      const updatedBook = await Book.findByIdAndUpdate(id, { ...req.body, email: req.params.email }, { new: true, overwrite: true });
       res.status(200).send(updatedBook);
     }
   } catch (e) {
